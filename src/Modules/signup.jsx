@@ -1,38 +1,13 @@
-// import React from 'react'
-
-// const Signup = () => {
-//   return (
-//     <>
-//     <div className=' h-64 bg-slate-600 static' >
-
-//         <div className="w-72 h-72 bg-red-400 justify-center content-center  align-middle absolute right-1/4 top-1/4 ">
-//             <h1 className='flex content-center'>signup</h1>
-//             <form>
-//                 <input className='' type='text' placeholder='placeholder'/>
-//                 {/* <input className="w-56 pl-2 active: outline-transparent " type="text" name="textBox" placeholder="Textbox" id="" /> */}
-//             </form>
-//         </div>
-//     </div>
-    
-
-//     <div className="h-80 bg-black"></div>
-
-
-
-//     </>
-//   )
-// }
-
-// export default Signup
-
-
 import React, { useState } from 'react';
+// import axios from 'axios';
 
 const AuthPage = () => {
   const[name, setname] = useState('')
   const[email,setemail] = useState('')
   const[password,setpassword] = useState('')
   const[confirmPassword,setconfirmPassword] = useState('')
+  const[isLogin, setIsLogin] = useState(true);
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -40,21 +15,13 @@ const AuthPage = () => {
   }
   
 
-  // const passConfirm = () => {
-  //   (password === confirmPassword)
-  // }
-
-
-
-  const [isLogin, setIsLogin] = useState(true);
-
   const togglePage = () => {
     setIsLogin(!isLogin);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded shadow-md">
+    <div className="flex flex-col items-center justify-center bg-slate-950 min-h-screen ">
+      <div className="w-full max-w-md p-8 space-y-8 rounded bg-slate-500 shadow-md ">
         <h2 className="text-2xl font-bold text-center">{isLogin ? 'Login' : 'Sign Up'}</h2>
         {isLogin ? (
           <form className="mt-8 space-y-6">
@@ -96,7 +63,11 @@ const AuthPage = () => {
               Login
             </button>
           </form>
-        ) : (
+        ) 
+        
+        : 
+        
+        (
           <form className="mt-8 space-y-6">
             <div className="rounded-md shadow-sm">
               <div>
@@ -162,7 +133,7 @@ const AuthPage = () => {
         <div className="mt-4 text-center">
           <button
             onClick={togglePage}
-            className="text-indigo-600 hover:underline"
+            className="text-indigo-900 hover:underline"
           >
             {isLogin ? 'Create an account' : 'Already have an account? Login'}
           </button>
