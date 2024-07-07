@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import backgroundImage from './icons/img1.jpg';
-import {Link} from 'react-router-dom'
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -43,9 +42,7 @@ const Login = () => {
               <input type="checkbox" id="remember-me" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" />
               <label htmlFor="remember-me" className="ml-2 text-sm text-white">Remember me</label>
             </div>
-            <div className="text-sm">
-              <Link to={<Login/>} className="font-medium text-purple-600 hover:text-purple-500">Forgot Password</Link>
-            </div>
+      
           </div>
           <button
             type="submit"
