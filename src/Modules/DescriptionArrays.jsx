@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-
+import { post } from '../services/ApiEndpoint';
 const DescriptionArrays = () => {
   const [descriptions, setDescriptions] = useState([]);
   const [newDescription, setNewDescription] = useState('');
+  const [newDescriptionName, setNewDescriptionName] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const addDescription = async () => {
-    if (!newDescription) {
-      setError('Description cannot be empty');
+    if (!newDescription || !newDescriptionName) {
+      setError('Description / Description Name cannot be empty');
       return;
     }
 
@@ -17,9 +17,11 @@ const DescriptionArrays = () => {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/items/items', { description: newDescription });
+      // const gettingId = await get('/items/items/:_id')
+      const response = await post('/items/items', {name: newDescriptionName,description: newDescription });
       setDescriptions([...descriptions, response.data]);
       setNewDescription('');
+      setNewDescriptionName('');
     } catch (error) {
       setError('Failed to add description');
     } finally {
@@ -27,11 +29,19 @@ const DescriptionArrays = () => {
     }
   };
 
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-4 bg-white rounded shadow-md">
         <h2 className="text-2xl font-bold text-center">Add Description</h2>
         <div className="mt-4 space-y-4">
+          <input
+            type="text"
+            value={newDescriptionName}
+            onChange={(e) => setNewDescriptionName(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            placeholder="Enter a description Name"
+          />
           <input
             type="text"
             value={newDescription}

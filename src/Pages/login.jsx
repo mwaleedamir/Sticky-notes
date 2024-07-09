@@ -1,30 +1,53 @@
 import React, { useState } from 'react';
-import backgroundImage from './icons/img1.jpg';
+import backgroundImage from './icons/1.jpg';
+import {Link} from 'react-router-dom'
+import {post} from '../services/ApiEndpoint.js'
+import { toast } from 'react-hot-toast';
+import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import { Setuser } from '../redux/Authslice.js';
+
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
+  const nav = useNavigate();
+  const dispatch = useDispatch()
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(username, password);
-  }
+    console.log(email, password);
+    try {
+      const request = await post('/auth/login',{email,password})
+      const response = await request.data
+      if(request.status === 200){
+        if(response.user.role === 'admin'){
+          nav('/admin')
+        }else if(response.user.role === 'user'){
+          nav('/user')
+        }
+        toast.success(response.message)
+        dispatch(Setuser(response.user))
+      }
+    } catch (error) {
+      console.log(error)
+    }
 
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})`}}>
       <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8 shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-bold text-center text-white mb-6">LOGIN PAGE</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <input
-              value={username}
-              id="username"
-              name="username"
+              value={email}
+              id="email"
+              name="email"
               type="text"
               required
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-              placeholder="Enter your Username"
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your email"
+              onChange={(e) => setemail(e.target.value)}
             />
             <input
               value={password}
@@ -50,6 +73,7 @@ const Login = () => {
           >
             Login
           </button>
+          <p className="text-white text-center text-xl hover:text-green-400"> <Link to={'/'}>don't have an account ?</Link></p>
         </form>
       </div>
     </div>

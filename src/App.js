@@ -1,40 +1,66 @@
-import './App.css';
-import About from './Modules/About';
-import Home from './Modules/Home';
-import NavBar from './Modules/navbar';
-import Signup from './Modules/signup';
+import Home from './Pages/Home';
+import Signup from './Pages/signup';
+import Login from './Pages/login';
+import { Toaster } from 'react-hot-toast';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
+import Admin from './Pages/Admin';
+import Adminlayout from './Layouts/adminlayout';
+import Userlayout from './Layouts/userlayout';
+import Publiclayout from './Layouts/publiclayout';
 function App() {
+  
   const router = createBrowserRouter([
+    
     {
-      path: "/",
-      element: (
-        <>
-          <NavBar /><Home />
-        </>
-      ),
+      path: "/admin",
+      element: <Adminlayout />,
+      children: [
+        {
+          index: true,
+          element: <Admin />,
+        },
+        {
+          path: "dashboard",
+          element: <Home />,
+        },
+      ],
     },
     {
-      path: "/about",
-      element: (
-        <>
-          <NavBar /><About />
-        </>
-      )
+      path:'/user',
+      element:<Userlayout/>,
+      children:[
+        {
+          index:true,
+          element:<Home/>
+        },
+        {
+          path: "dashboard",
+          element: <Home />,
+        },
+      ]
     },
+
     {
-      path: "/signup",
-      element: (
-        <>
-          <NavBar /><Signup />
-        </>
-      ),
+      path:'/',
+      element:<Publiclayout/>,
+      children:[
+        {
+          index:true,
+          element: <Signup />,
+        },
+        {
+          path: "login",
+          element: <Login />,
+        },
+      ]
     },
   ]);
 
   return (
-    <RouterProvider router={router} />
+    <>
+      <Toaster />
+      <RouterProvider router={router} />
+    </>
   );
 }
 
