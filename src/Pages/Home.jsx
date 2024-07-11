@@ -1,11 +1,11 @@
 import React from 'react'
-
-import{Component}  from '../Modules/sidebar'
-
+import DescriptionArrays from '../Modules/DescriptionArrays';
+import Sidebar  from '../Modules/sidebar'
 const Home = () => {
   return (
     <div>
-      <Component/>
+      <DescriptionArrays />
+      <Sidebar />
     </div>
   )
 }

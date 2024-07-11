@@ -21,8 +21,11 @@ const Signup = () => {
     }
     try { 
       const request = await post('/auth/signup', info);
-      const response  = await request.data;
+      const response  = request.data;
       if (request.status === 200) {
+        toast.success(response.message);
+      }
+      if (request.status === 400){
         toast.success(response.message);
       }
     } catch (error) {

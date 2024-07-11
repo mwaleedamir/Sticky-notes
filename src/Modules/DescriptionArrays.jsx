@@ -1,63 +1,92 @@
 import React, { useState } from 'react';
 import { post } from '../services/ApiEndpoint';
+import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const DescriptionArrays = () => {
   const [descriptions, setDescriptions] = useState([]);
+  const [showAddDescription, setShowAddDescription] = useState(false);
   const [newDescription, setNewDescription] = useState('');
   const [newDescriptionName, setNewDescriptionName] = useState('');
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  
+  const user = useSelector((state) => state.Auth.data);
 
   const addDescription = async () => {
     if (!newDescription || !newDescriptionName) {
-      setError('Description / Description Name cannot be empty');
+      toast.error('Description / Description Name cannot be empty');
       return;
     }
 
     setLoading(true);
-    setError(null);
 
     try {
-      // const gettingId = await get('/items/items/:_id')
-      const response = await post('/items/items', {name: newDescriptionName,description: newDescription });
+      const response = await post('/items/items/:id', { 
+        descriptionName: newDescriptionName, 
+        description: newDescription, 
+        userId: user._id  // Assuming user._id contains the user's ID
+      });
+      if (response.status === 400) {
+        toast.error(response.data.message);
+        return;
+      }
+
       setDescriptions([...descriptions, response.data]);
       setNewDescription('');
       setNewDescriptionName('');
+      toast.success('Description added successfully');
     } catch (error) {
-      setError('Failed to add description');
+      toast.error('Failed to add description');
     } finally {
       setLoading(false);
     }
   };
 
+  const toggleAddDescription = () => {
+    setShowAddDescription(!showAddDescription);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-4 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center">Add Description</h2>
-        <div className="mt-4 space-y-4">
-          <input
-            type="text"
-            value={newDescriptionName}
-            onChange={(e) => setNewDescriptionName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter a description Name"
-          />
-          <input
-            type="text"
-            value={newDescription}
-            onChange={(e) => setNewDescription(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            placeholder="Enter a new description"
-          />
-          <button
-            onClick={addDescription}
-            disabled={loading}
-            className={`w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading && 'opacity-50'}`}
-          >
-            {loading ? 'Adding...' : 'Create'}
-          </button>
-          {error && <p className="text-red-500">{error}</p>}
-        </div>
+    <div className="flex flex-row items-center justify-center min-h-screen bg-gray-100">
+      <ToastContainer />
+      <div className="w-full max-w-md p-10 space-y-4 bg-white rounded shadow-md">
+        <button
+          onClick={toggleAddDescription}
+          className="w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          {showAddDescription ? 'Hide Description Form' : 'Add Description'}
+        </button>
+
+        {showAddDescription && (
+          <>
+            <h2 className="text-2xl font-bold text-center">Add Description</h2>
+            <div className="mt-4 space-y-4">
+              <input
+                type="text"
+                value={newDescriptionName}
+                onChange={(e) => setNewDescriptionName(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter a description name"
+              />
+              <input
+                type="text"
+                value={newDescription}
+                onChange={(e) => setNewDescription(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter a new description"
+              />
+              <button
+                onClick={addDescription}
+                disabled={loading}
+                className={`w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${loading && 'opacity-50'}`}
+              >
+                {loading ? 'Adding...' : 'Create'}
+              </button>
+            </div>
+          </>
+        )}
+
         <div className="mt-8">
           <h3 className="text-lg font-semibold">Descriptions List</h3>
           <ul className="mt-4 space-y-2">
@@ -66,6 +95,7 @@ const DescriptionArrays = () => {
                 {desc.description}
               </li>
             ))}
+           
           </ul>
         </div>
       </div>

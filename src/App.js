@@ -3,10 +3,14 @@ import Signup from './Pages/signup';
 import Login from './Pages/login';
 import { Toaster } from 'react-hot-toast';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Admin from './Pages/Admin';
+import Admin from './AdminPages/Admin';
 import Adminlayout from './Layouts/adminlayout';
 import Userlayout from './Layouts/userlayout';
 import Publiclayout from './Layouts/publiclayout';
+import UserRegistered from './AdminPages/userregister';
+import UsersLogin from './AdminPages/userlogin';
+import AdminHistory from './AdminPages/History';
+import History from './AdminPages/History';
 function App() {
   
   const router = createBrowserRouter([
@@ -17,11 +21,19 @@ function App() {
       children: [
         {
           index: true,
-          element: <Admin />,
+          element: <Admin/>,
         },
         {
-          path: "dashboard",
-          element: <Home />,
+          path: "register",
+          element: <UserRegistered />,
+        },
+        {
+          path: "history",
+          element: <AdminHistory />,
+        },
+        {
+          path: "userlogin",
+          element: <UsersLogin />,
         },
       ],
     },
@@ -34,8 +46,8 @@ function App() {
           element:<Home/>
         },
         {
-          path: "dashboard",
-          element: <Home />,
+          path: "history",
+          element: <History />,
         },
       ]
     },

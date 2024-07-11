@@ -18,7 +18,7 @@ const Login = () => {
     console.log(email, password);
     try {
       const request = await post('/auth/login',{email,password})
-      const response = await request.data
+      const response = request.data   
       if(request.status === 200){
         if(response.user.role === 'admin'){
           nav('/admin')
@@ -28,6 +28,9 @@ const Login = () => {
         toast.success(response.message)
         dispatch(Setuser(response.user))
       }
+      if(request.status === 400){
+        toast.error(response.message)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -36,7 +39,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})`}}>
       <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8 shadow-lg max-w-md w-full">
-        <h2 className="text-3xl font-bold text-center text-white mb-6">LOGIN PAGE</h2>
+        <h2 className="text-3xl font-bold text-center text-white mb-6">LOGIN</h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <input
