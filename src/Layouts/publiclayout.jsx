@@ -7,12 +7,14 @@ export default function Publiclayout(){
   const user =  useSelector((state) => state.Auth.user)
   const navigate = useNavigate()
   useEffect(()=>{
-    if(user === 'user'){
-      navigate('/user')
+    if(user){
+      if(user.role ==='admin'){
+        navigate('/admin')
+      }else{
+        navigate('/user')
+      }
     }
-    if(user === 'admin'){
-      navigate('/admin')
-    }
+   
   },[user,navigate])
 
   return (

@@ -11,8 +11,11 @@ import { Setuser } from '../redux/Authslice.js';
 const Login = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword,setShowPassword] = useState(false)
   const nav = useNavigate();
   const dispatch = useDispatch()
+
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(email, password);
@@ -27,15 +30,21 @@ const Login = () => {
         }
         toast.success(response.message)
         dispatch(Setuser(response.user))
-      }
-      if(request.status === 400){
-        toast.error(response.message)
+
+        if (!response.user){
+          nav('/')
+        }
       }
     } catch (error) {
+      if(error.message){
+        toast.error(error.response.data.message)
+      }
       console.log(error)
     }
-
   }
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})`}}>
       <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8 shadow-lg max-w-md w-full">
@@ -56,7 +65,7 @@ const Login = () => {
               value={password}
               id="password"
               name="password"
-              type="password"
+              type= {showPassword ? "text": "password" }
               required
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter your password"
@@ -65,8 +74,9 @@ const Login = () => {
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <input type="checkbox" id="remember-me" className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" />
-              <label htmlFor="remember-me" className="ml-2 text-sm text-white">Remember me</label>
+              <input type="checkbox" id="remember-me" onChange={togglePasswordVisibility} checked={showPassword} className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded" />
+              <label htmlFor="remember-me" className="ml-2 text-sm text-white">Show password</label>
+              
             </div>
       
           </div>
@@ -76,7 +86,7 @@ const Login = () => {
           >
             Login
           </button>
-          <p className="text-white text-center text-xl hover:text-green-400"> <Link to={'/'}>don't have an account ?</Link></p>
+          <p className="text-white text-center text-xl hover:text-green-400"> <Link to={'/'}>Don't have an account ?</Link></p>
         </form>
       </div>
     </div>

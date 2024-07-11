@@ -6,13 +6,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const DescriptionArrays = () => {
   const [descriptions, setDescriptions] = useState([]);
-  const [showAddDescription, setShowAddDescription] = useState(false);
+  // const [showAddDescription, setShowAddDescription] = useState(false);
   const [newDescription, setNewDescription] = useState('');
   const [newDescriptionName, setNewDescriptionName] = useState('');
   const [loading, setLoading] = useState(false);
   
   const user = useSelector((state) => state.Auth.data);
-
   const addDescription = async () => {
     if (!newDescription || !newDescriptionName) {
       toast.error('Description / Description Name cannot be empty');
@@ -22,10 +21,10 @@ const DescriptionArrays = () => {
     setLoading(true);
 
     try {
-      const response = await post('/items/items/:id', { 
+      const response = await post('/items/items',{ 
         descriptionName: newDescriptionName, 
         description: newDescription, 
-        userId: user._id  // Assuming user._id contains the user's ID
+        userId: user._id  
       });
       if (response.status === 400) {
         toast.error(response.data.message);
@@ -43,24 +42,16 @@ const DescriptionArrays = () => {
     }
   };
 
-  const toggleAddDescription = () => {
-    setShowAddDescription(!showAddDescription);
-  };
-
+  // const toggleAddDescription = () => {
+  //   setShowAddDescription(!showAddDescription);
+  // };
+  //  {showAddDescription &&}
   return (
-    <div className="flex flex-row items-center justify-center min-h-screen bg-gray-100">
+    <div className=" flex flex-col">
       <ToastContainer />
-      <div className="w-full max-w-md p-10 space-y-4 bg-white rounded shadow-md">
-        <button
-          onClick={toggleAddDescription}
-          className="w-full px-4 py-2 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          {showAddDescription ? 'Hide Description Form' : 'Add Description'}
-        </button>
-
-        {showAddDescription && (
+      <div className="w-56 max-w-md p-2 space-y-2 bg-white rounded shadow-md">
           <>
-            <h2 className="text-2xl font-bold text-center">Add Description</h2>
+            {/* <h2 className="text-2xl font-bold text-center">Add Description</h2> */}
             <div className="mt-4 space-y-4">
               <input
                 type="text"
@@ -85,7 +76,6 @@ const DescriptionArrays = () => {
               </button>
             </div>
           </>
-        )}
 
         <div className="mt-8">
           <h3 className="text-lg font-semibold">Descriptions List</h3>

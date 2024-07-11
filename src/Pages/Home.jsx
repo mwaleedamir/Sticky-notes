@@ -3,7 +3,7 @@ import DescriptionArrays from '../Modules/DescriptionArrays';
 import Sidebar  from '../Modules/sidebar'
 const Home = () => {
   return (
-    <div>
+    <div className='w-64'>
       <DescriptionArrays />
       <Sidebar />
     </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import backgroundImage from './icons/5.jpeg';
 import { post } from '../services/ApiEndpoint.js';
 import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [info, setInfo] = useState({ name: '', email: '', password: '', confirmPassword: '' });
@@ -13,7 +14,8 @@ const Signup = () => {
     setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
   };
 
-  const handleSignUp = async (e) => {
+  const navigate = useNavigate()
+  const HandleSignUp = async (e) => {
     e.preventDefault();
     if (info.password !== info.confirmPassword) {
       alert('Passwords do not match!');
@@ -24,15 +26,16 @@ const Signup = () => {
       const response  = request.data;
       if (request.status === 200) {
         toast.success(response.message);
+        navigate('/login');
       }
-      if (request.status === 400){
-        toast.success(response.message);
-      }
+    
     } catch (error) {
       console.error(error);
+      if(error.message){
+        toast.error(error.response.data.message);
+      }
     }
   };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -41,7 +44,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-8 shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-bold text-center text-white mb-6">Sign Up</h2>
-        <form className="space-y-6" onSubmit={handleSignUp}>
+        <form className="space-y-6" onSubmit={HandleSignUp}>
           <div className="space-y-4">
             <h1 className='flex justify-center text-white text-2xl'>Welcome to my Notes</h1>
             <input

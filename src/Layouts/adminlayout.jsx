@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import Admin from '../AdminPages/Admin.jsx'
+import Adminsidebar from '../AdminPages/SideBarAdmin'
+
 
 export default function Adminlayout(){
  
@@ -12,12 +13,13 @@ console.log(user)
     if (!user || user.role !== 'admin'){
       navigate('/login')
     }
-  },[user,navigate])
 
+  },[user,navigate])
+ 
   return (
     <div>
       <Outlet/>
-      <Admin/>
+      <Adminsidebar/>
     </div>
   )
 }
