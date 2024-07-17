@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import Adminsidebar from '../AdminPages/SideBarAdmin'
 
 
 export default function Adminlayout(){
@@ -19,7 +18,6 @@ console.log(user)
   return (
     <div>
       <Outlet/>
-      <Adminsidebar/>
     </div>
   )
 }

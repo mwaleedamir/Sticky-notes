@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { get } from '../services/ApiEndpoint'
+import AdminNavbar from './AdminNavbar';
 
 const UserRegistered = () => {
   const [userData, setUserData] = useState(null);
@@ -19,11 +20,14 @@ const UserRegistered = () => {
   }, []);
 
   return (
+    <>
+    <AdminNavbar/>
     <div className='px-64'>
       Admin
       {error && <p>Error: {error.message}</p>}
       {userData && <p>{JSON.userData}</p>}
     </div>
+    </>
   );
 }
 

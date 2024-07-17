@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DescriptionArrays from '../Modules/DescriptionArrays';
+import AdminNavbar from './AdminNavbar';
 
 const AdminDashboard = () => {
-  const [show, setShow] = useState(false);
-
-  function handleShow() {
-    setShow(!show);
-  }
 
   return (
-    <div className='px-64'>
-      <h1>  Welcome to Admin Dashboard </h1>
-      <button onClick={handleShow}>
-        Toggle Description
-      </button>
-      {show && <DescriptionArrays />}
+    <>
+      <AdminNavbar/>
+        <div className='px'>
+      <h1 className=' flex justify-center  text-5xl'>  Welcome to Admin Dashboard </h1>
+     
+      <DescriptionArrays />
     </div>
+    </>
   );
 }
 

@@ -1,4 +1,4 @@
-import Home from './Pages/Home';
+import Dashboard from './Pages/Dashboard';
 import Signup from './Pages/signup';
 import Login from './Pages/login';
 import { Toaster } from 'react-hot-toast';
@@ -9,10 +9,13 @@ import Publiclayout from './Layouts/publiclayout';
 import UserRegistered from './AdminPages/userregister';
 import UsersLogin from './AdminPages/userlogin';
 import AdminHistory from './AdminPages/History';
-import History from './AdminPages/History';
+import History from './Pages/History'
 import AdminDashboard from './AdminPages/AdminDashboard';
-function App() {
-  
+import Create from './Pages/Create';
+import DynamicPage from './Pages/DynamicPage';
+import NewPage from './Pages/NewPage';
+
+
   const router = createBrowserRouter([
     
     {
@@ -43,11 +46,23 @@ function App() {
       children:[
         {
           index:true,
-          element:<Home/>
+          element:<Dashboard/>
         },
         {
           path: "history",
-          element: <History />,
+          element: <History/>,
+        },
+        {
+          path: "newpage",
+          element: <NewPage/>,
+        },
+        {
+          path: "page/:pageId",
+          element: <DynamicPage/>,
+        },
+        {
+          path:'create',
+          element:<Create/>
         },
       ]
     },
@@ -66,14 +81,16 @@ function App() {
         },
       ]
     },
+    
   ]);
+  function App() {
+    return (
+      <>
+        <Toaster />
+        <RouterProvider router={router} />
+      </>
+    );
+  }
 
-  return (
-    <>
-      <Toaster />
-      <RouterProvider router={router} />
-    </>
-  );
-}
 
 export default App;

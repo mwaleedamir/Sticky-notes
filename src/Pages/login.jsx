@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import backgroundImage from './icons/1.jpg';
+// import backgroundImage from './icons/1.jpg';
+import backgroundImage from './icons/forest1.jpg';
 import {Link} from 'react-router-dom'
 import {post} from '../services/ApiEndpoint.js'
 import { toast } from 'react-hot-toast';
@@ -21,7 +22,7 @@ const Login = () => {
     console.log(email, password);
     try {
       const request = await post('/auth/login',{email,password})
-      const response = request.data   
+      const response = await request.data
       if(request.status === 200){
         if(response.user.role === 'admin'){
           nav('/admin')
@@ -30,10 +31,7 @@ const Login = () => {
         }
         toast.success(response.message)
         dispatch(Setuser(response.user))
-
-        if (!response.user){
-          nav('/')
-        }
+       
       }
     } catch (error) {
       if(error.message){
