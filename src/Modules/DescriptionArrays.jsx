@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { post, put } from '../services/ApiEndpoint';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 import {
   DndContext,
   closestCenter,
@@ -24,9 +25,18 @@ const KanbanBoard = () => {
   const [newItem, setNewItem] = useState({});
   const [loading, setLoading] = useState(false);
 
+  const  id  = useParams();
   const user = useSelector((state) => state.Auth);
   const columnsRef = useRef(columns);
-
+  const Allow = () =>{
+    if(id){
+      return true;
+    }
+    else{
+      toast.error('Please login to access this page');
+      return false;
+    }
+  }
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor)
@@ -72,7 +82,7 @@ const KanbanBoard = () => {
 
       if (response.status === 400) {
         toast.error(response.data.message);
-        return;
+        return; 
       }
 
       const updatedColumns = [...columnsRef.current];

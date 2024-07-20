@@ -1,5 +1,5 @@
 import React from 'react';
-import DescriptionArrays from '../Modules/DescriptionArrays';
+import TestingKanban from '../Modules/TestingKanban'
 import AdminNavbar from './AdminNavbar';
 
 const AdminDashboard = () => {
@@ -10,7 +10,7 @@ const AdminDashboard = () => {
         <div className='px'>
       <h1 className=' flex justify-center  text-5xl'>  Welcome to Admin Dashboard </h1>
      
-      <DescriptionArrays />
+      <TestingKanban />
     </div>
     </>
   );
