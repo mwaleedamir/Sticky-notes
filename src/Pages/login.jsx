@@ -6,7 +6,7 @@ import {post} from '../services/ApiEndpoint.js'
 import { toast } from 'react-hot-toast';
 import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-import { Setuser } from '../redux/Authslice.js';
+import { setUser } from '../redux/AuthSlice.js';
 
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
     console.log(email, password);
     try {
       const request = await post('/auth/login',{email,password})
-      const response = await request.data
+      const response = request.data
       if(request.status === 200){
         if(response.user.role === 'admin'){
           nav('/admin')
@@ -30,8 +30,8 @@ const Login = () => {
           nav('/user')
         }
         toast.success(response.message)
-        dispatch(Setuser(response.user))
-       
+        dispatch(setUser(response.user))
+                                            
       }
     } catch (error) {
       if(error.message){

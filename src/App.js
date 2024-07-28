@@ -13,7 +13,8 @@ import History from './Pages/History';
 import AdminDashboard from './AdminPages/AdminDashboard';
 import Create from './Pages/Create';
 import DynamicPage from './Pages/DynamicPage';
-import Modal from './Pages/Modal';
+// import Board
+import CreateAdmin from './AdminPages/createAdmin';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AdminDashboard /> },
       { path: "register", element: <UserRegistered /> },
+      { path: 'createadmin/:adminpages', element: <CreateAdmin/> },
       { path: "history", element: <AdminHistory /> },
       { path: "userlogin", element: <UsersLogin /> },
     ],
@@ -32,7 +34,6 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Dashboard /> },
       { path: "history", element: <History /> },
-      { path: "modal", element: <Modal /> },
       { path: "pages/:pageId", element: <DynamicPage /> },
       { path: 'create/:boardId', element: <Create /> },
     ],

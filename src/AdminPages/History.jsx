@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { get, put } from '../services/ApiEndpoint';
 import { useSelector } from 'react-redux';
 import AdminNavbar from './AdminNavbar';
+import bg from '../Pages/icons/forest1.jpg';
 
 const History = () => {
   const [historyData, setHistoryData] = useState([]);
@@ -36,7 +37,7 @@ const History = () => {
 
   return (
     <>
-    <AdminNavbar/>
+    <AdminNavbar bg={bg} />
     <div className="p-8 bg-gray-100 min-h-screen">
       <h1 className="text-3xl font-bold mb-8">History</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

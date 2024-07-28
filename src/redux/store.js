@@ -1,21 +1,35 @@
-import {configureStore} from '@reduxjs/toolkit'
-import Authslice from './Authslice'
-import storage from 'redux-persist/lib/storage'
-import {persistStore,persistReducer} from 'redux-persist'
-  
+import { configureStore } from '@reduxjs/toolkit';
+import AuthSlice from './AuthSlice';
+import ColumnSlice from './ColumnSlice';
+import BoardSlice from './BoardSlice';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist';
 
-const persistConfig = {
-    key: 'root',
+const authPersistConfig = {
+    key: 'auth',
     storage,
-    whiteList: ['Auth']
-}
-const persistedReducer = persistReducer(persistConfig, Authslice)
+};
 
+const columnPersistConfig = {
+    key: 'column',
+    storage,
+};
+
+const boardPersistConfig = {
+    key: 'board',
+    storage,
+};
+
+const persistedReducerAuth = persistReducer(authPersistConfig, AuthSlice);
+const persistedReducerColumn = persistReducer(columnPersistConfig, ColumnSlice);
+const persistedReducerBoard = persistReducer(boardPersistConfig, BoardSlice);
 
 export const store = configureStore({
-    reducer:{
-        Auth:persistedReducer 
+    reducer: {
+        auth: persistedReducerAuth,
+        column: persistedReducerColumn,
+        board: persistedReducerBoard,
     }
-})
+});
 
-export const persister  = persistStore(store)
+export const persistor = persistStore(store);

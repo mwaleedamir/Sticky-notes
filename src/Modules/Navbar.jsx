@@ -3,7 +3,7 @@ import { post } from '../services/ApiEndpoint.js';
 import { toast } from 'react-hot-toast';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { logOut } from "../redux/Authslice.js";
+import { logOut } from "../redux/AuthSlice.js";
 
 
 const Navbar = (props) => {
@@ -28,7 +28,7 @@ const Navbar = (props) => {
   };
 
   return (
-    <nav className="bg-cover bg-center shadow-lg p-4" style={{ backgroundImage: `url(${props.bg})` }}>
+    <nav className="fixed w-full z-30 bg-cover bg-center shadow-lg p-4" style={{ backgroundImage: `url(${props.bg})` }}>
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <Link to="/user" className="text-xl font-bold text-white">User Dashboard</Link>

@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux'
 
 export default function Adminlayout(){
  
-const user =  useSelector((state) => state.Auth.user)
+const user =  useSelector((state) => state.auth.user)
 console.log(user)
   const navigate = useNavigate()
   useEffect(()=>{

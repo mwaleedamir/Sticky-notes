@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <div >
       <Navbar bg={bg}/>
-      <Sidebar bg={bg}/>
+      <Sidebar role = 'user' page ='create' bg={bg}/>
     </div>
   )  
 }
