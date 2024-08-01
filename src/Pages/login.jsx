@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import backgroundImage from './icons/1.jpg';
-import backgroundImage from './icons/forest1.jpg';
+import backgroundImage from './icons/1.jpg';
+// import backgroundImage from './icons/forest1.jpg';
 import {Link} from 'react-router-dom'
 import {post} from '../services/ApiEndpoint.js'
 import { toast } from 'react-hot-toast';

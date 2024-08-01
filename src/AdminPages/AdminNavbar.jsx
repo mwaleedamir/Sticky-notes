@@ -50,12 +50,6 @@ const AdminNavbar = (props) => {
               <Link to="/admin" className="hover:text-gray-200 text-white">Dashboard</Link>
             </li>
             <li>
-              <Link to="/admin/history" className="hover:text-gray-200 flex items-center text-white">
-                History
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-2 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-              </Link>
-            </li>
-            <li>
               <Link to="/admin/register" className="hover:text-gray-200 text-white">User Registered</Link>
             </li>
             <li>

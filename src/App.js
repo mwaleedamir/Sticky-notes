@@ -7,14 +7,11 @@ import Adminlayout from './Layouts/adminlayout';
 import Userlayout from './Layouts/userlayout';
 import Publiclayout from './Layouts/publiclayout';
 import UserRegistered from './AdminPages/userregister';
-import UsersLogin from './AdminPages/userlogin';
-import AdminHistory from './AdminPages/History';
-import History from './Pages/History';
 import AdminDashboard from './AdminPages/AdminDashboard';
 import Create from './Pages/Create';
-import DynamicPage from './Pages/DynamicPage';
-// import Board
 import CreateAdmin from './AdminPages/createAdmin';
+import {DndContext} from '@dnd-kit/core';
+
 
 const router = createBrowserRouter([
   {
@@ -23,9 +20,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AdminDashboard /> },
       { path: "register", element: <UserRegistered /> },
-      { path: 'createadmin/:adminpages', element: <CreateAdmin/> },
-      { path: "history", element: <AdminHistory /> },
-      { path: "userlogin", element: <UsersLogin /> },
+      { path: 'createadmin/:boardId', element: <CreateAdmin/> },
     ],
   },
   {
@@ -33,8 +28,6 @@ const router = createBrowserRouter([
     element: <Userlayout />,
     children: [
       { index: true, element: <Dashboard /> },
-      { path: "history", element: <History /> },
-      { path: "pages/:pageId", element: <DynamicPage /> },
       { path: 'create/:boardId', element: <Create /> },
     ],
   },
@@ -51,8 +44,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <Toaster />
-      <RouterProvider router={router} />
+      <DndContext>
+        <Toaster />
+        <RouterProvider router={router} />
+      </DndContext>
     </>
   );
 }
