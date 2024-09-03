@@ -7,6 +7,7 @@ import TestingKanban from '../Modules/TestingKanban';
 
 const Create = () => {
   const { boardId } = useParams();
+  console.log("board id comming form create " ,boardId)
   return (
     <>
       <Navbar bg={bg} />

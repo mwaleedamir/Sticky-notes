@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { get } from '../services/ApiEndpoint';
 import AdminNavbar from './AdminNavbar';
-import bg from '../Pages/icons/forest1.jpg';
+import bg from '../Pages/icons/1.jpg';
 
 const UserRegistered = () => {
   const [userData, setUserData] = useState([]);

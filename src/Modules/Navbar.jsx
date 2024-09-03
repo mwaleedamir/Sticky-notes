@@ -51,12 +51,6 @@ const Navbar = (props) => {
               <Link to='/user' className="hover:text-gray-200 text-white">Dashboard</Link>
             </li>
             <li>
-              <Link to='/user/history' className="hover:text-gray-200 flex items-center text-white">
-                History
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-2 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-              </Link>
-            </li>
-            <li>
               <button onClick={logingOut} className="hover:text-gray-200 text-white">Logout</button>
             </li>
           </ul>
